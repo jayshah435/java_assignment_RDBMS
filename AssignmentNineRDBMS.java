@@ -5,21 +5,21 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-//List the Empno, Ename, Sal, Daily sal of all emps in the asc order of Annsal
+//List the Enames those are starting with ‘S’ and with five characters
 
-public class AssignmentFiveRDBMS {
+public class AssignmentNineRDBMS {
 	public static void main(String[] args) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_assignment","root","");
 			
-			String sql = "select Empno, Ename, Sal from emp_table_data order by Sal asc";
+			String sql = "select * from emp_table_data where Length(Ename)=5 and Ename like 'S%'";
 			PreparedStatement pst= conn.prepareStatement(sql);
 			ResultSet rst = pst.executeQuery();
 			
-			System.out.println("Employee Details In Asc Order Of Salary");
+			System.out.println("Employee Names Who Are Starting With 'S' And With 5 Characters");
 			while(rst.next()) {
-				System.out.println("Empno: "+rst.getString("Empno")+" Ename: "+rst.getString("Ename")+" Sal: "+rst.getString("Sal"));
+				System.out.println("Ename: "+rst.getString("Ename"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

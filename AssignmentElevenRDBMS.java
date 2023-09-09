@@ -5,21 +5,21 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-//List the Empno, Ename, Sal, Daily sal of all emps in the asc order of Annsal
+//List all the Clerks of Deptno 20
 
-public class AssignmentFiveRDBMS {
+public class AssignmentElevenRDBMS {
 	public static void main(String[] args) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_assignment","root","");
 			
-			String sql = "select Empno, Ename, Sal from emp_table_data order by Sal asc";
+			String sql = "select * from emp_table_data where Job in ('CLERK') and Deptno=20";
 			PreparedStatement pst= conn.prepareStatement(sql);
 			ResultSet rst = pst.executeQuery();
 			
-			System.out.println("Employee Details In Asc Order Of Salary");
+			System.out.println("Employees Who Are Clerks And From Deptno 20");
 			while(rst.next()) {
-				System.out.println("Empno: "+rst.getString("Empno")+" Ename: "+rst.getString("Ename")+" Sal: "+rst.getString("Sal"));
+				System.out.println("Ename: "+rst.getString("Ename")+", Job: "+rst.getString("Job")+", Deptno: "+rst.getString("Deptno"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
